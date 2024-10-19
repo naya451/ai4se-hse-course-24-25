@@ -14,10 +14,11 @@ def classifier(dataset, model):
         real_model = LogisticRegression()
     else:
         real_model = '' #codebert
-    X = np.array(X)
-    y = np.array(y)
 
     X, y = dataset['vectorized'], dataset['is_toxic']
+
+    X = np.array(X)
+    y = np.array(y)
 
     skf = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
     scores = []
