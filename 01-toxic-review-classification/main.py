@@ -70,7 +70,7 @@ def parse_args():
         '-m',
         '--model',
         choices=['rand_for', 'log_reg', 'microsoft/codebert-base'],
-        default='classic_ml',
+        default='rand_for',
     )
 
     return parser.parse_args()

@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 def classifier(dataset, model):    
     if (model == 'rand_for'):
-        real_model = RandomForest()
+        real_model = RandomForestClassifier()
     elif (model == 'log_reg'):
         real_model = LogisticRegression()
     else:
