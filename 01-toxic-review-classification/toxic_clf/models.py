@@ -16,7 +16,7 @@ def classifier(dataset, model):
         real_model = '' #codebert
 
     print(dataset)
-    # print(dataset['vectorized'][:10:])
+    print(dataset['vectorized'][0])
     X, y = dataset['vectorized'], dataset['is_toxic']
 
     skf = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
@@ -24,8 +24,8 @@ def classifier(dataset, model):
     for train_index, test_index in tqdm(skf.split(X, y), desc="Cross-Validating"):
         print(train_index, type(train_index))
         print(X)
-        X_train, X_test = X[train_index], X[test_index]
-        y_train, y_test = y[train_index], y[test_index]
+        X_train, X_test = [X[ind] for ind in train_index], [X[ind] for ind in test_index]
+        y_train, y_test = [y[ind] for ind in train_index], [y[ind]  for ind in test_index]
         real_model.fit(X_train, y_train)
 
         y_pred = real_model.predict(X_test)
