@@ -2,6 +2,7 @@ from pathlib import Path
 
 import datasets
 import pandas as pd
+import re
 
 
 # Функция для очистки текста
