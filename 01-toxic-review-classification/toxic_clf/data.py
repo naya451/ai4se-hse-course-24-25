@@ -24,7 +24,7 @@ def prepare(raw_data: Path) -> datasets.Dataset:
     dataset = pd.read_excel(raw_data)
     dataset.dropna(inplace=True) 
     dataset.drop_duplicates(inplace=True) 
-    data['cleaned_text'] = data['message'].apply(clean_text)
+    dataset['cleaned_text'] = dataset['message'].apply(clean_text)
     return datasets.Dataset.from_dict({'fake_data': [[1, 2], [3, 4]]})
 
 
