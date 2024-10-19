@@ -93,8 +93,7 @@ def vectorize_dataset(args):
 
     dataset = dataset.map(vectorize_text, batched=True)
     print(dataset)
-    print(dataset['features'])
-    print(dataset['features']['vectorized'])
+    print(dataset['vectorized'])
     save_dataset(dataset, args.outputvectorized)
 
 def classify(args):
