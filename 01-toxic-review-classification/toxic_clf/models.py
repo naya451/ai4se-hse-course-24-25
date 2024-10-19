@@ -17,6 +17,7 @@ def classifier(dataset, model):
 
     print(dataset)
     print(dataset['vectorized'][0])
+    dataset = dataset.with_format("np")
     X, y = dataset['vectorized'], dataset['is_toxic']
     X = np.array(  [np.array(i) for i in X]  )
     y = np.array(y)
