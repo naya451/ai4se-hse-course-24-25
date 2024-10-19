@@ -82,10 +82,14 @@ def vectorize_dataset(args):
     dataset = load_dataset(args.prepared)
     if (args.vectorizer == 'count_vec'):
         vect = CountVectorizer()
-        dataset['vectorized'] = vect.fit_transform(dataset['cleaned_text'])
     else:
         vect = TfidfVectorizer()
-        dataset['vectorized'] = vect.fit_transform(dataset['cleaned_text'])
+        
+    def vectorize_text(data):
+        vectors = vect.fit_transform(data['cleaned_text']).toarray()
+        return {'vectorized': vectors.tolist()}
+
+    dataset = dataset.map(vectorize_text, batched=True)
     save_dataset(dataset, args.outputvectorized)
 
 def classify(args):
