@@ -41,8 +41,8 @@ def parse_args():
         default=CountVectorizer
     )
     prepare_data_parser.add_argument(
-        '-o',
-        '--output',
+        '-ov',
+        '--outputvectorized',
         help='Path to save vectorized dataset to',
         type=Path,
         default=default_data_path,
@@ -81,7 +81,7 @@ def prepare_data(args):
 def vectorize_dataset(args):
     dataset = load_dataset(args.prepared)
     dataset['vectorized'] = args.vectorizer.fit_transform(dataset['cleaned_text'])
-    save_dataset(dataset, args.output)
+    save_dataset(dataset, args.outputvectorized)
 
 def classify(args):
     dataset = load_dataset(args.dataset)
