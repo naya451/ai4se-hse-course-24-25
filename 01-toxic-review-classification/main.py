@@ -37,8 +37,8 @@ def parse_args():
         '-v',
         '--vectorizer',
         help='Vectorizer',
-        type=type(CountVectorizer),
-        default=CountVectorizer
+        choices=['count_vec', 'tfidf'],
+        default='count_vec'
     )
     prepare_data_parser.add_argument(
         '-ov',
@@ -80,7 +80,10 @@ def prepare_data(args):
 
 def vectorize_dataset(args):
     dataset = load_dataset(args.prepared)
-    dataset['vectorized'] = args.vectorizer.fit_transform(dataset['cleaned_text'])
+    if (args.vectorizer == 'count_vec'):
+        dataset['vectorized'] = CountVectorizer.fit_transform(dataset['cleaned_text'])
+    else:
+        dataset['vectorized'] = TfidfVectorizer.fit_transform(dataset['cleaned_text'])
     save_dataset(dataset, args.outputvectorized)
 
 def classify(args):
