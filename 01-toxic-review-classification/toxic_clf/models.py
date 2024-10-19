@@ -25,7 +25,6 @@ def classifier(dataset, model):
     scores = []
     for train_index, test_index in tqdm(skf.split(X, y), desc="Cross-Validating"):
         print(train_index, type(train_index))
-        print(X)
         X_train, X_test = X[train_index], X[test_index]#[X[ind] for ind in train_index], [X[ind] for ind in test_index]
         y_train, y_test = y[train_index], y[test_index]#[y[ind] for ind in train_index], [y[ind]  for ind in test_index]
         real_model.fit(X_train, y_train)
