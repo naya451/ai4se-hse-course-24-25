@@ -14,6 +14,8 @@ def classifier(dataset, model):
         real_model = LogisticRegression()
     else:
         real_model = '' #codebert
+    X = np.array(X)
+    y = np.array(y)
 
     X, y = dataset['vectorized'], dataset['is_toxic']
 
