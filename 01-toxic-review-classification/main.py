@@ -96,9 +96,6 @@ def vectorize_dataset(args):
 
 def classify(args):
     dataset = load_dataset(args.dataset)
-
-    print(dataset)
-    print(dataset['vectorized'])
     classifier(dataset, args.model)
 
 
