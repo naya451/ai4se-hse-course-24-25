@@ -15,11 +15,12 @@ def classifier(dataset, model):
     else:
         real_model = '' #codebert
 
+    print(dataset)
     X, y = dataset['vectorized'], dataset['is_toxic']
 
     skf = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
     scores = []
-    for train_index, test_index in tqdm(skf.split(X, y)):
+    for train_index, test_index in tqdm(skf.split(X, y), desc="Cross-Validating"):
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
         real_model.fit(X_train, y_train)
