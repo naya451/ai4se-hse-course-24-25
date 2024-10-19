@@ -37,7 +37,7 @@ def parse_args():
         '-v',
         '--vectorizer',
         help='Vectorizer',
-        type=Vectorizer,
+        type=type(CountVectorizer),
         default=CountVectorizer
     )
     prepare_data_parser.add_argument(
