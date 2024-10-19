@@ -25,6 +25,7 @@ def classifier(dataset, model):
         print(train_index, type(train_index))
         X_train, X_test = [X[ind] for ind in train_index], [X[ind] for ind in test_index]
         y_train, y_test = [y[ind] for ind in train_index], [y[ind]  for ind in test_index]
+        print(type(X_train))
         real_model.fit(X_train, y_train)
 
         y_pred = real_model.predict(X_test)
