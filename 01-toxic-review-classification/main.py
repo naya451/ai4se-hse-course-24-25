@@ -88,7 +88,7 @@ def vectorize_dataset(args):
         vect = TfidfVectorizer()
         
     def vectorize_text(data):
-        vectors = vect.fit_transform(data['cleaned_text'])
+        vectors = vect.fit_transform(data['cleaned_text']).toarray()
         return {'vectorized': vectors.tolist()}
 
     dataset = dataset.map(vectorize_text, batched=True)
