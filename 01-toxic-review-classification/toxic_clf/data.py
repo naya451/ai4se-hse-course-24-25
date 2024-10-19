@@ -25,7 +25,7 @@ def prepare(raw_data: Path) -> datasets.Dataset:
     dataset.dropna(inplace=True) 
     dataset.drop_duplicates(inplace=True) 
     dataset['cleaned_text'] = dataset['message'].apply(clean_text)
-    return datasets.Dataset.from_dict({'fake_data': [[1, 2], [3, 4]]})
+    return datasets.Dataset.from_dict(dataset)
 
 def load_dataset(path: Path) -> datasets.Dataset:
     return datasets.load_from_disk(str(path))
