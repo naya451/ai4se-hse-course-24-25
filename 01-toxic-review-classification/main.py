@@ -16,6 +16,7 @@ def parse_args():
     subparsers = parser.add_subparsers(dest='cmd')
 
     default_data_path = Path('./prepared-dataset')
+
     prepare_data_parser = subparsers.add_parser('prepare-data')
     prepare_data_parser.set_defaults(func=prepare_data)
     prepare_data_parser.add_argument(
@@ -34,12 +35,20 @@ def parse_args():
     vectorize_data_parser = subparsers.add_parser('vectorize-data')
     vectorize_data_parser.set_defaults(func=vectorize_dataset)
     vectorize_data_parser.add_argument(
+        '-p',
+        '--prepared',
+        help='Path to prepared dataset',
+        type=Path,
+        default=default_data_path,
+    )
+    vectorize_data_parser.add_argument(
         '-v',
         '--vectorizer',
         help='Vectorizer',
         choices=['count_vec', 'tfidf'],
         default='count_vec'
     )
+    default_data_path = Path('./vectorized-dataset')
     vectorize_data_parser.add_argument(
         '-ov',
         '--outputvectorized',
@@ -47,14 +56,7 @@ def parse_args():
         type=Path,
         default=default_data_path,
     )
-    vectorize_data_parser.add_argument(
-        '-p',
-        '--prepared',
-        help='Path to prepared dataset',
-        type=Path,
-        default=default_data_path,
-    )
-
+    
     predict_parser = subparsers.add_parser('classify')
     predict_parser.set_defaults(func=classify)
     predict_parser.add_argument(
