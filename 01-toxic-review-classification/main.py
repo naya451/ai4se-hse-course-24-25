@@ -33,21 +33,21 @@ def parse_args():
 
     vectorize_data_parser = subparsers.add_parser('vectorize-data')
     vectorize_data_parser.set_defaults(func=vectorize_dataset)
-    prepare_data_parser.add_argument(
+    vectorize_data_parser.add_argument(
         '-v',
         '--vectorizer',
         help='Vectorizer',
         choices=['count_vec', 'tfidf'],
         default='count_vec'
     )
-    prepare_data_parser.add_argument(
+    vectorize_data_parser.add_argument(
         '-ov',
         '--outputvectorized',
         help='Path to save vectorized dataset to',
         type=Path,
         default=default_data_path,
     )
-    prepare_data_parser.add_argument(
+    vectorize_data_parser.add_argument(
         '-p',
         '--prepared',
         help='Path to prepared dataset',
