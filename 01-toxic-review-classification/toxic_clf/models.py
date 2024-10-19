@@ -19,16 +19,13 @@ def classifier(dataset, model):
     print(dataset['vectorized'][0])
     dataset = dataset.with_format("np")
     X, y = dataset['vectorized'], dataset['is_toxic']
-    X = np.array(  [np.array(i) for i in X]  )
-    y = np.array(y)
-
 
     skf = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
     scores = []
     for train_index, test_index in tqdm(skf.split(X, y), desc="Cross-Validating"):
         print(train_index, type(train_index))
-        X_train, X_test = [X[ind] for ind in train_index], [X[ind] for ind in test_index]
-        y_train, y_test = [y[ind] for ind in train_index], [y[ind]  for ind in test_index]
+        X_train, X_test = X[train_index], X[test_index]#[X[ind] for ind in train_index], [X[ind] for ind in test_index]
+        y_train, y_test = y[train_index], y[test_index]#[y[ind] for ind in train_index], [y[ind]  for ind in test_index]
         print(type(X_train))
         
         real_model.fit(X_train, y_train)
