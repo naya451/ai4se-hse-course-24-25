@@ -3,6 +3,7 @@ from pathlib import Path
 
 from toxic_clf.data import load_dataset, prepare, save_dataset
 from toxic_clf.models import classifier
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 
 def main():
@@ -30,12 +31,36 @@ def parse_args():
         default=default_data_path,
     )
 
+    vectorize_data_parser = subparsers.add_parser('vectorize-data')
+    vectorize_data_parser.set_defaults(func=vectorize_dataset)
+    prepare_data_parser.add_argument(
+        '-v',
+        '--vectorizer',
+        help='Vectorizer',
+        type=Vectorizer,
+        default=CountVectorizer
+    )
+    prepare_data_parser.add_argument(
+        '-o',
+        '--output',
+        help='Path to save vectorized dataset to',
+        type=Path,
+        default=default_data_path,
+    )
+    prepare_data_parser.add_argument(
+        '-p',
+        '--prepared',
+        help='Path to prepared dataset',
+        type=Path,
+        default=default_data_path,
+    )
+
     predict_parser = subparsers.add_parser('classify')
     predict_parser.set_defaults(func=classify)
     predict_parser.add_argument(
         '-d',
         '--dataset',
-        help='Path to prepared dataset',
+        help='Path to vectorized dataset',
         type=Path,
         default=default_data_path,
     )
@@ -53,6 +78,10 @@ def prepare_data(args):
     dataset = prepare(args.input)
     save_dataset(dataset, args.output)
 
+def vectorize_dataset(args):
+    dataset = load_dataset(args.prepared)
+    dataset['vectorized'] = args.vectorizer.fit_transform(dataset['cleaned_text'])
+    save_dataset(dataset, args.output)
 
 def classify(args):
     dataset = load_dataset(args.dataset)

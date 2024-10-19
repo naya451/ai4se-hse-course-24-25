@@ -4,7 +4,6 @@ import datasets
 import pandas as pd
 import re
 
-
 # Функция для очистки текста
 def clean_text(text):
     text = re.sub(r'http\S+|www\S+|https\S+', '', text, flags=re.MULTILINE)
@@ -28,10 +27,8 @@ def prepare(raw_data: Path) -> datasets.Dataset:
     dataset['cleaned_text'] = dataset['message'].apply(clean_text)
     return datasets.Dataset.from_dict({'fake_data': [[1, 2], [3, 4]]})
 
-
 def load_dataset(path: Path) -> datasets.Dataset:
     return datasets.load_from_disk(str(path))
-
 
 def save_dataset(dataset: datasets.Dataset, path: Path) -> None:
     dataset.save_to_disk(str(path))
