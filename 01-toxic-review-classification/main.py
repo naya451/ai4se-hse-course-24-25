@@ -88,11 +88,13 @@ def vectorize_dataset(args):
         vect = TfidfVectorizer()
         
     def vectorize_text(data):
-        vectors = vect.fit_transform(data['cleaned_text']).toarray()
+        vectors = vect.fit_transform(data['cleaned_text'])
         return {'vectorized': vectors.tolist()}
 
     dataset = dataset.map(vectorize_text, batched=True)
+    print(dataset)
     print(dataset['features'])
+    print(dataset['features']['vectorized'])
     save_dataset(dataset, args.outputvectorized)
 
 def classify(args):
