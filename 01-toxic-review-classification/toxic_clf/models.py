@@ -18,6 +18,9 @@ def classifier(dataset, model):
     print(dataset)
     print(dataset['vectorized'][0])
     X, y = dataset['vectorized'], dataset['is_toxic']
+    X = np.array(  [np.array(i) for i in X]  )
+    y = np.array(y)
+
 
     skf = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
     scores = []
@@ -26,9 +29,7 @@ def classifier(dataset, model):
         X_train, X_test = [X[ind] for ind in train_index], [X[ind] for ind in test_index]
         y_train, y_test = [y[ind] for ind in train_index], [y[ind]  for ind in test_index]
         print(type(X_train))
-        X_train = np.array(X_train)
-        y_train = np.array(y_train)
-
+        
         real_model.fit(X_train, y_train)
 
         y_pred = real_model.predict(X_test)
