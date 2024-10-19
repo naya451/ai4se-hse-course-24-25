@@ -89,7 +89,7 @@ def vectorize_dataset(args):
         
     def vectorize_text(data):
         vectors = vect.fit_transform(data['cleaned_text']).toarray()
-        return {'vectorized': vectors.tolist()}
+        return {'vectorized': vectors}
 
     dataset = dataset.map(vectorize_text, batched=True)
     save_dataset(dataset, args.outputvectorized)
