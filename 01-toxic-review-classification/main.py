@@ -81,9 +81,11 @@ def prepare_data(args):
 def vectorize_dataset(args):
     dataset = load_dataset(args.prepared)
     if (args.vectorizer == 'count_vec'):
-        dataset['vectorized'] = CountVectorizer.fit_transform(dataset['cleaned_text'])
+        vect = CountVectorizer()
+        dataset['vectorized'] = vect.fit_transform(dataset['cleaned_text'])
     else:
-        dataset['vectorized'] = TfidfVectorizer.fit_transform(dataset['cleaned_text'])
+        vect = TfidfVectorizer()
+        dataset['vectorized'] = vect.fit_transform(dataset['cleaned_text'])
     save_dataset(dataset, args.outputvectorized)
 
 def classify(args):
