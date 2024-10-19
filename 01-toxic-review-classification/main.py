@@ -92,12 +92,13 @@ def vectorize_dataset(args):
         return {'vectorized': vectors.tolist()}
 
     dataset = dataset.map(vectorize_text, batched=True)
-    print(dataset)
-    print(dataset['vectorized'])
     save_dataset(dataset, args.outputvectorized)
 
 def classify(args):
     dataset = load_dataset(args.dataset)
+
+    print(dataset)
+    print(dataset['vectorized'])
     classifier(dataset, args.model)
 
 

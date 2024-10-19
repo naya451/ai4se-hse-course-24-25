@@ -16,6 +16,7 @@ def classifier(dataset, model):
         real_model = '' #codebert
 
     print(dataset)
+    print(dataset['vectorized'][:10:])
     X, y = dataset['vectorized'], dataset['is_toxic']
 
     skf = StratifiedKFold(n_splits=10, random_state=42, shuffle=True)
